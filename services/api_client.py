@@ -36,7 +36,7 @@ class Client:
                         
                 except ClientError as e:
                     # Обработка ошибок соединения/таймаута
-                    raise Exception(f"Failed to get weather data: {str(e)}")
+                    raise Exception(f"Failed to get data: {str(e)}")
                     
         except Exception as e:
             # Обработка других исключений
