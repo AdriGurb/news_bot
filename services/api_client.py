@@ -8,15 +8,15 @@ class Client:
         self.base_url = "https://newsapi.org/v2/"
         self.timeout = timeout  # Таймаут запроса в секундах
 
-        self._wheater_cache: dict[str, tuple[float, dict]] = {}  # news -> (timestamp, data)
+        self.cache: dict[str, tuple[float, dict]] = {}  # news -> (timestamp, data)
         self.cache_ttl = cache_ttl  # Время жизни кэша в секундах
 
     async def get_random_news(self, news: str) -> dict:
         now = time.time()
 
         # Проверка кэша
-        if news in self._wheater_cache:
-            ts, data = self._wheater_cache[news]
+        if news in self.cache:
+            ts, data = self.cache[news]
             if now - ts < self.cache_ttl:
                 return data
 
@@ -31,7 +31,7 @@ class Client:
                         data = await response.json()
                         
                         # Сохраняем в кэш
-                        self._wheater_cache[news] = (now, data)
+                        self.cache[news] = (now, data)
                         return data
                         
                 except ClientError as e:
