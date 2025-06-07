@@ -19,10 +19,10 @@ async def cmd_add_fav(message: Message):
     if len(parts) < 2:
         return await message.reply("Нужно написать новость: /add рынок акций")
 
-    city = parts[1].strip()
+    fav = parts[1].strip()
     # опционально можно проверить существование через mal_client.anime_exists
-    await storage.add(message.from_user.id, city)
-    await message.reply(f"Город {city} добавлен в избранное.")
+    await storage.add(message.from_user.id, fav)
+    await message.reply(f"Город {fav} добавлен в избранное.")
 
 # ---- Список избранного ----
 @router.message(Command("favs"))
